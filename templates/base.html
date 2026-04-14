@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark">RS</span>
+                <div class="brand-copy">
+                    <strong>ReabilitaSUS</strong>
+                    <p>Saúde, mobilidade e cuidado público</p>
+                </div>
+            </a>
+            <button class="header-toggle" aria-label="Abrir menu" aria-expanded="false" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="header-nav" aria-label="Menu de navegação">
+                <a href="/">Home</a>
+                <a href="/apresentacao/">Apresentação</a>
+                <a href="/sobre/">Sobre</a>
+                <a href="/funcionalidades/">Funcionalidades</a>
+                <a href="/contato/" class="button header-cta">Contato</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>ReabilitaSUS &copy; 2026 - Plataforma de reabilitação inclusiva integrada ao SUS.</p>
+            <p>Projeto institucional com foco em acesso, acessibilidade e continuidade do cuidado.</p>
+        </div>
+    </footer>
+    <script>
+        const headerToggle = document.querySelector('.header-toggle');
+        const headerNav = document.querySelector('.header-nav');
+
+        if (headerToggle && headerNav) {
+            headerToggle.addEventListener('click', () => {
+                const expanded = headerToggle.getAttribute('aria-expanded') === 'true';
+                headerToggle.setAttribute('aria-expanded', String(!expanded));
+                headerToggle.setAttribute('aria-label', expanded ? 'Abrir menu' : 'Fechar menu');
+                headerToggle.classList.toggle('open');
+                headerNav.classList.toggle('nav-open');
+            });
+        }
+    </script>
+</body>
+</html>

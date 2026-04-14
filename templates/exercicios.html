@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Exercícios Guiados</h2>
+<p>O ReabilitaSUS organiza sequências de exercícios que podem ser acompanhados em casa, com instruções claras para cada etapa.</p>
+<p>Esses exercícios ajudam a manter a rotina de cuidado e fortalecer a reabilitação de forma contínua.</p>
+
+<section class="levels-section">
+    <h3>Trilhas de Exercícios</h3>
+    <div class="trail-grid">
+        <article class="trail-card">
+            <h4>Iniciante</h4>
+            <p>Primeiros passos claros e ações suaves para iniciar a reabilitação com segurança.</p>
+            <a href="/exercicios/iniciante/" class="button button-secondary">Abrir trilha</a>
+        </article>
+        <article class="trail-card">
+            <h4>Médio</h4>
+            <p>Rotinas progressivas de coordenação, equilíbrio e fortalecimento funcional.</p>
+            <a href="/exercicios/medio/" class="button button-secondary">Abrir trilha</a>
+        </article>
+        <article class="trail-card">
+            <h4>Avançado</h4>
+            <p>Desafios para quem já domina a base e busca maior autonomia e resistência.</p>
+            <a href="/exercicios/avancado/" class="button button-secondary">Abrir trilha</a>
+        </article>
+    </div>
+</section>
+
+<section class="video-base">
+    <div class="video-header">
+        <div class="video-step">
+            <span>1</span>
+        </div>
+        <div>
+            <h3>Base para Vídeos e Atividades</h3>
+            <p>Este espaço serve como ponto central para incluir vídeos, guias e planos de exercícios divididos por nível. Use esta trilha como referência principal ao adicionar novos conteúdos multimídia.</p>
+        </div>
+    </div>
+    <div class="video-content">
+        <p>Como organizar os materiais:</p>
+        <ul>
+            <li>Vídeo de boas-vindas com orientações gerais.</li>
+            <li>Rotina básica para Iniciante.</li>
+            <li>Sequência de exercícios para Médio.</li>
+            <li>Série avançada com metas de evolução funcional.</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
