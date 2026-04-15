@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <h2>Trilha de Exercícios - Iniciante</h2>
 <p>Esta trilha é ideal para quem está iniciando a reabilitação. Ela foca em exercícios suaves, mobilidade básica e adaptação de rotina.</p>
@@ -56,7 +57,7 @@
             <div class="video-meta">
                 <h4>Alongamento inicial</h4>
                 <p>Assista ao vídeo de aquecimento e alongamentos simples para iniciar com segurança.</p>
-                <a href="#" class="button button-secondary">Assistir vídeo</a>
+                <a href="{% static 'media/iniciante-1.mp4' %}" class="button button-secondary" target="_blank">Assistir vídeo</a>
             </div>
         </article>
         <article class="video-card">
@@ -64,7 +65,7 @@
             <div class="video-meta">
                 <h4>Mobilidade articular</h4>
                 <p>Vídeo explicando movimentos suaves para melhorar a amplitude articular.</p>
-                <a href="#" class="button button-secondary">Assistir vídeo</a>
+                <a href="{% static 'media/iniciante-2.mp4' %}" class="button button-secondary" target="_blank">Assistir vídeo</a>
             </div>
         </article>
     </div>

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <h2>Trilha de Exercícios - Médio</h2>
 <p>Esta trilha é destinada a usuários que já fizeram a etapa inicial e querem avançar com exercícios de força, equilíbrio e coordenação.</p>
@@ -56,7 +57,7 @@
             <div class="video-meta">
                 <h4>Coordenação e equilíbrio</h4>
                 <p>Conteúdo em vídeo para treinar estabilidade, postura e movimentos coordenados.</p>
-                <a href="#" class="button button-secondary">Assistir vídeo</a>
+                <a href="{% static 'media/medio-1.mp4' %}" class="button button-secondary" target="_blank">Assistir vídeo</a>
             </div>
         </article>
         <article class="video-card">

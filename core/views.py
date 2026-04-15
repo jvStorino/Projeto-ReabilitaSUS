@@ -19,6 +19,10 @@ def sobre(request):
     return render(request, 'sobre.html', {'page_title': 'Sobre ReabilitaSUS'})
 
 
+def libras(request):
+    return render(request, 'libras.html', {'page_title': 'Auxílio em Libras'})
+
+
 def rcpd(request):
     return render(request, 'rcpd.html', {'page_title': 'RCPD - ReabilitaSUS'})
 

@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-header page-presentacao">
+    <div class="page-label">Libras</div>
+    <h2>Sistema de 100 sinais em Libras</h2>
+    <p>Busque entre 100 palavras e veja como fazer o sinal correspondente em Libras com explicações claras e diretas.</p>
+</section>
+
+<section class="page-section">
+    <article class="page-card">
+        <h3>Como usar</h3>
+        <p>Digite o termo na busca para filtrar os sinais. Cada cartão apresenta o gesto em Libras e a forma de realizá-lo com as mãos e o corpo.</p>
+    </article>
+</section>
+
+<section class="page-section">
+    <article class="page-card">
+        <label for="libras-search">Buscar sinal</label>
+        <input id="libras-search" class="glossary-search" type="search" placeholder="Ex: médico, família, hoje" aria-label="Buscar sinal em Libras">
+        <p class="glossary-count" aria-live="polite"></p>
+    </article>
+</section>
+
+<section class="page-section glossary-grid" id="glossary-grid" aria-live="polite"></section>
+
+<script>
+    const glossary = [
+        {term: 'Olá', description: 'Levante a mão dominante com a palma aberta e mova-a levemente para frente, como um cumprimento.'},
+        {term: 'Oi', description: 'Use a mão dominante com a palma aberta na altura do peito e mova-a suavemente para frente.'},
+        {term: 'Bom dia', description: 'Com as duas mãos abertas, deslize a mão dominante da frente do peito para cima, simulando luz da manhã.'},
+        {term: 'Boa tarde', description: 'Faça o gesto de bom dia e depois mova a mão para o lado, indicando a tarde.'},
+        {term: 'Boa noite', description: 'Leve as duas mãos abertas à frente do rosto e depois abaixe-as como um aceno suave à noite.'},
+        {term: 'Tchau', description: 'Mexa a mão dominante com a palma voltada para fora em pequenos movimentos de aceno.'},
+        {term: 'Por favor', description: 'Com a mão aberta na altura do peito, faça movimentos circulares suaves sobre o peito.'},
+        {term: 'Obrigado', description: 'Leve a mão dominante à boca e depois afaste-a em direção ao interlocutor, mostrando agradecimento.'},
+        {term: 'Desculpa', description: 'Toque o peito com a mão dominante fechada e faça um pequeno movimento circular.'},
+        {term: 'Ajuda', description: 'Coloque a mão dominante em forma de "A" sobre a palma aberta da mão não dominante e levante as duas juntas.'},
+        {term: 'Saúde', description: 'Encoste as pontas dos dedos das duas mãos no peito e depois afaste as mãos levemente.'},
+        {term: 'Médico', description: 'Com a mão dominante em forma de "M", toque a parte superior do antebraço da outra mão, simbolizando médico ou saúde.'},
+        {term: 'Enfermeiro', description: 'Mova a mão dominante da altura do peito para a altura do ombro, indicando cuidado de saúde.'},
+        {term: 'Consulta', description: 'Aproximar as mãos abertas uma da outra e movê-las levemente para cima, sugerindo conversa ou exame.'},
+        {term: 'Remédio', description: 'Encoste três dedos da mão dominante nos dedos da mão não dominante e mova para cima, imitando tomar remédio.'},
+        {term: 'Hospital', description: 'Forme um H com os dedos e deslize-o levemente para frente, indicando local de saúde.'},
+        {term: 'Exame', description: 'Use a mão dominante apontando para a mão não dominante, indicando análise ou verificação.'},
+        {term: 'Dor', description: 'Com as duas mãos espalmadas, toque a área onde dói e faça um pequeno aperto no local.'},
+        {term: 'Dor de cabeça', description: 'Toque as laterais da cabeça com os dedos e faça um pequeno movimento circular, indicando dor na cabeça.'},
+        {term: 'Dor no peito', description: 'Coloque a mão dominante no peito e pressione levemente, mostrando desconforto.'},
+        {term: 'Cansaço', description: 'Deixe a cabeça cair um pouco e mova as mãos abertas para baixo, como sinais de fadiga.'},
+        {term: 'Fome', description: 'Faça um movimento com a mão aberta na altura do estômago, indicando sensação de fome.'},
+        {term: 'Sede', description: 'Toque a garganta com os dedos e faça um leve movimento de engolir, indicando sede.'},
+        {term: 'Corpo', description: 'Passe a mão aberta verticalmente pelo centro do peito, representando o corpo.'},
+        {term: 'Braço', description: 'Deslize a mão aberta ao longo do braço da outra mão, mostrando o membro.'},
+        {term: 'Perna', description: 'Passe a mão aberta pela frente da perna, indicando o membro inferior.'},
+        {term: 'Mão', description: 'Abra e feche a mão dominante em frente ao corpo para indicar a mão.'},
+        {term: 'Cabeça', description: 'Toque a parte superior da cabeça com a mão dominante, indicando a cabeça.'},
+        {term: 'Olho', description: 'Aponte com um dedo para o próprio olho, indicando a visão.'},
+        {term: 'Boca', description: 'Toque os lábios com os dedos, indicando a boca.'},
+        {term: 'Orelha', description: 'Toque a orelha com a mão dominante, indicando audição.'},
+        {term: 'Nariz', description: 'Toque a ponta do nariz com o dedo, indicando o nariz.'},
+        {term: 'Coração', description: 'Coloque ambas as mãos sobre o centro do peito, indicando o coração.'},
+        {term: 'Respirar', description: 'Leve as mãos abertas à altura do peito e faça um leve movimento de cima para baixo, indicando respiração.'},
+        {term: 'Andar', description: 'Simule um passo com a mão dominante apontando para frente e alternando os dedos.', },
+        {term: 'Sentar', description: 'Bata levemente com as mãos sobre as coxas, indicando a ação de sentar.'},
+        {term: 'Levantar', description: 'Empurre as mãos para cima a partir da altura do peito, indicando levantar-se.'},
+        {term: 'Dormir', description: 'Coloque a cabeça sobre as mãos juntas como se fosse um travesseiro e feche os olhos.'},
+        {term: 'Acordar', description: 'Abra os olhos com as mãos afastando-se da cabeça, indicando o despertar.'},
+        {term: 'Trabalhar', description: 'Bata levemente as duas mãos abertas uma contra a outra, indicando atividade.'},
+        {term: 'Casa', description: 'Desenhe com a mão o contorno do telhado e da base de uma casa no ar.'},
+        {term: 'Família', description: 'Faça um F com as duas mãos e gire-as levemente para dentro, indicando grupo familiar.'},
+        {term: 'Amigo', description: 'Toque levemente os dedos das duas mãos e afaste-os, indicando proximidade entre pessoas.'},
+        {term: 'Mãe', description: 'Toque o queixo com uma mão aberta, indicando mãe.'},
+        {term: 'Pai', description: 'Toque a testa com uma mão aberta, indicando pai.'},
+        {term: 'Irmão', description: 'Aponte para a lateral da cabeça e depois faça um movimento de união entre as mãos, indicando irmão.'},
+        {term: 'Irmã', description: 'Faça o mesmo gesto de irmão, mas com uma mão mais próxima ao rosto, indicando irmã.'},
+        {term: 'Filho', description: 'Coloque uma mão aberta sobre a outra e mova-as para baixo, indicando criança.'},
+        {term: 'Filha', description: 'Faça o gesto de filho e leve a mão para o queixo, combinando família com criança.'},
+        {term: 'Avô', description: 'Toque a testa com a mão em forma de V e depois retraia-a, indicando avô.'},
+        {term: 'Avó', description: 'Toque o queixo com a mão em forma de V e depois retraia-a, indicando avó.'},
+        {term: 'Criança', description: 'Abra as mãos e mova-as para cima como se estivesse embalando um bebê.'},
+        {term: 'Adulto', description: 'Mova as mãos para cima em direção aos ombros, indicando uma pessoa adulta.'},
+        {term: 'Idoso', description: 'Coloque as mãos sobre os ombros e faça um movimento de leve descida, indicando idade.'},
+        {term: 'Mulher', description: 'Toque o queixo com a mão aberta e depois abaixe-a levemente, indicando mulher.'},
+        {term: 'Homem', description: 'Toque a testa com a mão aberta e depois abaixe-a levemente, indicando homem.'},
+        {term: 'Pessoa', description: 'Faça um movimento vertical com as mãos abertas na frente do corpo, indicando alguém.'},
+        {term: 'Surdo', description: 'Aponte para o ouvido e depois para a boca, indicando ausência de audição.'},
+        {term: 'Intérprete', description: 'Faça um movimento de transição entre a boca e a mão, indicando tradução de sinais.'},
+        {term: 'Escola', description: 'Desenhe um triângulo no ar com as mãos, indicando prédio e aprendizagem.'},
+        {term: 'Aula', description: 'Posicione a mão aberta à frente do corpo e mova-a para cima, indicando lição.'},
+        {term: 'Aprender', description: 'Toque a testa com os dedos e depois mova a mão para fora, indicando absorver conhecimento.'},
+        {term: 'Falar', description: 'Toque a ponta dos dedos na boca e mova-os para fora, indicando expressão.'},
+        {term: 'Comunicar', description: 'Use as duas mãos abertas em frente ao peito e mova-as uma para a outra, mostrando troca de mensagem.'},
+        {term: 'Texto', description: 'Faça um T com a mão dominante e mova-o sobre a palma aberta da outra mão, indicando escrita.'},
+        {term: 'Ler', description: 'Abra as mãos como páginas e mova-as como se folheando um livro.'},
+        {term: 'Escrever', description: 'Simule um movimento de escrita com a mão dominante sobre a palma da outra.'},
+        {term: 'Ver', description: 'Aponte para os olhos com o indicador, indicando visão.'},
+        {term: 'Ouvir', description: 'Aponte para a orelha com o indicador, indicando audição.'},
+        {term: 'Comer', description: 'Leve a mão à boca em pequenos movimentos, imitando a ação de comer.'},
+        {term: 'Beber', description: 'Faça um movimento de levar um copo imaginário à boca.'},
+        {term: 'Sentir', description: 'Coloque a mão aberta sobre o peito e faça um pequeno movimento circular.'},
+        {term: 'Alegria', description: 'Toque as maçãs do rosto com as mãos abertas e mova-as levemente para fora.'},
+        {term: 'Tristeza', description: 'Deslize as mãos abertas para baixo no rosto, como se lágrimas caíssem.'},
+        {term: 'Medo', description: 'Abra as mãos diante do corpo e afaste-as levemente, indicando receio.'},
+        {term: 'Preocupação', description: 'Passe a mão na lateral da cabeça em movimentos curtos, indicando pensar muito.'},
+        {term: 'Esperança', description: 'Levante as mãos abertas à frente do peito e depois eleve-as levemente para cima.'},
+        {term: 'Força', description: 'Feche o punho e mostre-o em frente ao peito, indicando força e energia.'},
+        {term: 'Cura', description: 'Passe a palma da mão sobre o peito e depois afaste-a, indicando recuperação.'},
+        {term: 'Proteção', description: 'Use as mãos abertas em frente ao corpo como um escudo protetor.'},
+        {term: 'Vacina', description: 'Toque o ombro com a mão dominante e faça um pequeno movimento de inserção, simbolizando aplicação.'},
+        {term: 'Exercício', description: 'Abrace o ar com as mãos e mova-as para cima e para baixo, indicando movimento e prática.'},
+        {term: 'Alongamento', description: 'Estenda um braço e puxe-o levemente com a outra mão, indicando esticar o corpo.'},
+        {term: 'Movimento', description: 'Faça um movimento fluido com a mão aberta em frente ao corpo, indicando ação.'},
+        {term: 'Repouso', description: 'Coloque as mãos juntas e abaixe-as suavemente em direção ao corpo, indicando descanso.'},
+        {term: 'Postura', description: 'Mostre uma linha reta com a mão aberta ao lado do corpo, indicando alinhamento.'},
+        {term: 'Tratamento', description: 'Faça um movimento de mãos como se cuidasse de alguém, indicando cuidado médico.'},
+        {term: 'Inclusão', description: 'Junte as mãos abertas de diferentes direções, indicando união e acesso para todos.'},
+        {term: 'Acessibilidade', description: 'Use uma mão aberta em frente ao corpo e a outra ao lado, indicando acesso facilitado.'},
+        {term: 'Direito', description: 'Abra as duas mãos na altura dos ombros e mantenha-as firmes, indicando justiça.'},
+        {term: 'Amor', description: 'Crie um coração no ar com as mãos ou toque o peito com as duas mãos juntas.'},
+        {term: 'Cuidado', description: 'Coloque as mãos sobre o peito e mova-as lentamente, indicando atenção carinhosa.'},
+        {term: 'Respeito', description: 'Coloque a mão aberta sobre o peito e incline levemente a cabeça, indicando consideração.'},
+        {term: 'Atenção', description: 'Aponte para a própria testa e depois abra a mão, indicando foco e alerta.'},
+        {term: 'Tempo', description: 'Desenhe um pequeno círculo com a mão aberta na altura do pulso, indicando relógio ou tempo.'},
+        {term: 'Dia', description: 'Mova a mão dominante da linha do horizonte para cima, indicando a luz do dia.'},
+        {term: 'Noite', description: 'Abaixe a mão aberta da altura do rosto para a altura do ombro, indicando o anoitecer.'},
+        {term: 'Agora', description: 'Aponte para o próprio peito com o indicador e faça um pequeno movimento para baixo.'},
+        {term: 'Hoje', description: 'Aponte para si mesmo com a mão dominante e faça um pequeno círculo, indicando o dia presente.'},
+        {term: 'Amanhã', description: 'Aponte para a frente com o indicador e mova a mão para frente, indicando o dia seguinte.'},
+        {term: 'Ontem', description: 'Aponte para trás com o indicador, indicando o dia anterior.'}
+    ];
+
+    const grid = document.getElementById('glossary-grid');
+    const searchInput = document.getElementById('libras-search');
+    const glossaryCount = document.querySelector('.glossary-count');
+
+    function renderGlossary(items) {
+        grid.innerHTML = '';
+        if (items.length === 0) {
+            grid.innerHTML = '<article class="page-card"><p>Nenhum sinal encontrado. Tente outra palavra.</p></article>';
+            glossaryCount.textContent = '0 sinais encontrados';
+            return;
+        }
+
+        items.forEach(item => {
+            const card = document.createElement('article');
+            card.className = 'glossary-card';
+            card.innerHTML = `<details><summary>${item.term}</summary><p>${item.description}</p></details>`;
+            grid.appendChild(card);
+        });
+
+        glossaryCount.textContent = `${items.length} sinal${items.length === 1 ? '' : 's'} encontrados`;
+    }
+
+    function filterGlossary() {
+        const query = searchInput.value.trim().toLowerCase();
+        const filtered = glossary.filter(item => item.term.toLowerCase().includes(query));
+        renderGlossary(filtered);
+    }
+
+    searchInput.addEventListener('input', filterGlossary);
+    renderGlossary(glossary);
+</script>
+{% endblock %}
+
