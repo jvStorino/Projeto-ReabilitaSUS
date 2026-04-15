@@ -8,9 +8,10 @@ Projeto Django para apresentação institucional da plataforma ReabilitaSUS.
 
 ```bash
 python -m venv venv
-venv\\Scripts\\activate
 ```
-
+```bash
+.\venv\Scripts\activate
+```
 2. Instale as dependências:
 
 ```bash
