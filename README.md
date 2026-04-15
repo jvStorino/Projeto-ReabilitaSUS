@@ -24,19 +24,13 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-4. Crie um superusuário (opcional):
-
-```bash
-python manage.py createsuperuser
-```
-
-5. Inicie o servidor:
+4. Inicie o servidor:
 
 ```bash
 python manage.py runserver
 ```
 
-6. Acesse `http://127.0.0.1:8000/` no navegador.
+5. Acesse `http://127.0.0.1:8000/` no navegador.
 
 ## Estrutura
 
